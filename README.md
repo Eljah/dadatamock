@@ -23,6 +23,29 @@ curl -X POST http://localhost:3000/suggestions/api/4_1/rs/suggest/address \
   -d '{"query": "Москва"}'
 ```
 
+Пример ответа:
+
+```json
+{
+  "suggestions": [
+    {
+      "value": "Москва fake address 1",
+      "unrestricted_value": "101000, Москва fake address 1",
+      "data": {
+        "postal_code": "101000",
+        "country": "Россия",
+        "country_iso_code": "RU",
+        "region_with_type": "г Москва",
+        "city": "Москва",
+        "fias_level": "1",
+        "geo_lat": "55.75396",
+        "geo_lon": "37.620393"
+      }
+    }
+  ]
+}
+```
+
 ## Docker
 
 Сервис можно запустить в контейнере:
