@@ -1,4 +1,5 @@
 const http = require('http');
+const { recordRequest, getMetrics } = require('./metrics');
 
 const PORT = process.env.PORT || 3000;
 
@@ -121,12 +122,20 @@ function parseBody(req, callback) {
 const server = http.createServer((req, res) => {
   const start = Date.now();
 
+  if (req.method === 'GET' && req.url === '/metrics') {
+    res.writeHead(200, { 'Content-Type': 'text/plain; version=0.0.4' });
+    res.end(getMetrics());
+    recordRequest(200, Date.now() - start);
+    return;
+  }
+
   const sendResponse = (statusCode, payload) => {
     const elapsed = Date.now() - start;
     const delay = Math.max(0, 200 - elapsed);
     setTimeout(() => {
       res.writeHead(statusCode, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify(payload));
+      recordRequest(statusCode, Date.now() - start);
     }, delay);
   };
 

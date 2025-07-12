@@ -15,6 +15,12 @@ node server.js
 POST /suggestions/api/4_1/rs/suggest/address
 ```
 
+Дополнительно доступен эндпоинт для экспорта метрик в формате Prometheus:
+
+```
+GET /metrics
+```
+
 Пример запроса:
 
 ```bash
